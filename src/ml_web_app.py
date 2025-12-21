@@ -232,7 +232,11 @@ def train_status():
     })
 
 if __name__ == '__main__':
+    # Allow cloud platforms (Amplify, etc.) to provide the port via env var
+    port = int(os.environ.get('PORT', '8080'))
+    # Enable/disable debug via env: DEBUG=true/false
+    debug_flag = str(os.environ.get('DEBUG', 'false')).lower() == 'true'
     print("🚀 Khởi động ML Web Application...")
     print("📊 Models đã load:", list(trainer.trained_models.keys()) if trainer.trained_models else "Không có")
-    print("🌐 Truy cập: http://localhost:8085")
-    app.run(debug=True, host='0.0.0.0', port=8085) 
+    print(f"🌐 Truy cập: http://localhost:{port}")
+    app.run(debug=debug_flag, host='0.0.0.0', port=port)

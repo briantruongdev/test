@@ -29,8 +29,8 @@ COPY src/ /app/
 ENV PORT=8080
 EXPOSE 8080
 
-# Start the Flask app via Gunicorn
-# If your Flask app module or variable name differs, update "ml_web_app:app"
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--workers", "2", "--threads", "2", "--timeout", "120", "ml_web_app:app"]
+# Start the Flask app the same way you do locally
+# Amplify sets PORT env; ml_web_app.py reads it (default 8080)
+CMD ["python", "ml_web_app.py"]
 
 
