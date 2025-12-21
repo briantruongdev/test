@@ -1,0 +1,41 @@
+{
+  "image_path": "dataset/train/images/train_1.jpg",
+  "analysis_timestamp": "20250726_175551",
+  "final_classification": {
+    "classification": "NO FIRE",
+    "confidence": 0.3333333333333333,
+    "confidence_level": "MEDIUM",
+    "score": 2,
+    "total_conditions": 6,
+    "indicators": {
+      "fire_ratio": 0.01229671556122449,
+      "fire_area_ratio": 0.008001833545918368,
+      "avg_brightness": 147.70171568627453,
+      "avg_saturation": 145.0007843137255,
+      "max_brightness": 169.57843137254903,
+      "texture_entropy": 3.2873350323018786,
+      "fire_hue_ratio": 0.1815542777379354,
+      "high_saturation_ratio": 0.1423589140176773,
+      "high_value_ratio": 0.3384287357330322
+    },
+    "conditions": {
+      "has_fire_colors": false,
+      "has_fire_area": false,
+      "has_brightness": false,
+      "has_saturation": true,
+      "has_texture": false,
+      "has_fire_histogram": true
+    },
+    "reasoning": "Lý do phân loại:\n✅ Các điều kiện đạt:\n   - has_saturation\n   - has_fire_histogram\n❌ Các điều kiện không đạt:\n   - has_fire_colors\n   - has_fire_area\n   - has_brightness\n   - has_texture\n\n📊 Chỉ số quan trọng:\n   - Tỷ lệ màu lửa: 1.23%\n   - Diện tích lửa: 0.80%\n   - Độ sáng trung bình: 147.7\n   - Độ bão hòa trung bình: 145.0\n"
+  },
+  "step_by_step_results": {
+    "step1_preprocessing": {
+      "image_stats": {
+        "image_size": [
+          224,
+          224,
+          3
+        ],
+        "mean_brightness": 94.16145169005102,
+        "std_brightness": 78.92183747835702,
+        "max_brightness": 

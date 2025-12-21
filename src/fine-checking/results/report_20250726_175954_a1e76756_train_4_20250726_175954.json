@@ -1,0 +1,99 @@
+{
+  "image_path": "fine-checking/uploads/20250726_175954_a1e76756_train_4.jpg",
+  "analysis_timestamp": "20250726_175954",
+  "final_classification": {
+    "classification": "FIRE",
+    "confidence": 0.6666666666666666,
+    "confidence_level": "MEDIUM",
+    "score": 4,
+    "total_conditions": 6,
+    "indicators": {
+      "fire_ratio": 0.08452248086734694,
+      "fire_area_ratio": 0.06578842474489796,
+      "avg_brightness": 149.4753700883305,
+      "avg_saturation": 175.936415689939,
+      "max_brightness": 202.13403614457832,
+      "texture_entropy": 3.3421467864879246,
+      "fire_hue_ratio": 0.28032658497492474,
+      "high_saturation_ratio": 0.48421555757522583,
+      "high_value_ratio": 0.14162148535251617
+    },
+    "conditions": {
+      "has_fire_colors": true,
+      "has_fire_area": true,
+      "has_brightness": false,
+      "has_saturation": true,
+      "has_texture": false,
+      "has_fire_histogram": true
+    },
+    "reasoning": "Lý do phân loại:\n✅ Các điều kiện đạt:\n   - has_fire_colors\n   - has_fire_area\n   - has_saturation\n   - has_fire_histogram\n❌ Các điều kiện không đạt:\n   - has_brightness\n   - has_texture\n\n📊 Chỉ số quan trọng:\n   - Tỷ lệ màu lửa: 8.45%\n   - Diện tích lửa: 6.58%\n   - Độ sáng trung bình: 149.5\n   - Độ bão hòa trung bình: 175.9\n"
+  },
+  "step_by_step_results": {
+    "step1_preprocessing": {
+      "image_stats": {
+        "image_size": [
+          224,
+          224,
+          3
+        ],
+        "mean_brightness": 65.95804767219387,
+        "std_brightness": 62.85190609056938,
+        "max_brightness": 255,
+        "min_brightness": 0
+      }
+    },
+    "step2_color_analysis": {
+      "color_stats": {
+        "red": {
+          "pixel_count": 654,
+          "ratio": 0.013034119897959183,
+          "percentage": "1.30%"
+        },
+        "orange": {
+          "pixel_count": 3718,
+          "ratio": 0.07409917091836735,
+          "percentage": "7.41%"
+        },
+        "yellow": {
+          "pixel_count": 9,
+          "ratio": 0.0001793686224489796,
+          "percentage": "0.02%"
+        }
+      },
+      "total_fire_ratio": 0.08452248086734694
+    },
+    "step3_fire_regions": {
+      "total_regions": 9,
+      "fire_area_ratio": 0.06578842474489796,
+      "brightness_stats": {
+        "avg": 149.4753700883305,
+        "max": 202.13403614457832
+      },
+      "saturation_stats": {
+        "avg": 175.936415689939
+      }
+    },
+    "step4_texture": {
+      "texture_stats": {
+        "gradient_mean": 89.08822705924187,
+        "gradient_std": 129.88067465535724,
+        "gradient_max": 1078.2328134498598,
+        "direction_mean": 0.07049885184278261,
+        "direction_std": 1.8452821622496711,
+        "gradient_entropy": 3.3421467864879246
+      }
+    },
+    "step5_histogram": {
+      "fire_hue_ratio": 0.28032658497492474,
+      "saturation_ratio": 0.48421555757522583,
+      "value_ratio": 0.14162148535251617
+    }
+  },
+  "thresholds_used": {
+    "fire_ratio_min": 0.02,
+    "fire_brightness_min": 150,
+    "fire_saturation_min": 100,
+    "texture_entropy_min": 4.0,
+    "color_histogram_fire_ratio_min": 0.1
+  }
+}
