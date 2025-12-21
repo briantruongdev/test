@@ -30,7 +30,7 @@ feature_extractor = FireFeatureExtractor()
 # Load models mới nhất nếu có
 def load_latest_models():
     """Load models mới nhất từ thư mục trained_models"""
-    models_dir = "trained_models"
+    models_dir = MODELS_DIR
     if not os.path.exists(models_dir):
         print("❌ Không tìm thấy thư mục trained_models")
         return False
@@ -200,7 +200,7 @@ def load_models_endpoint():
 @app.route('/train-status')
 def train_status():
     """Kiểm tra trạng thái training"""
-    models_dir = "trained_models"
+    models_dir = MODELS_DIR
     if not os.path.exists(models_dir):
         return jsonify({'status': 'no_models', 'message': 'Chưa có models nào được train'})
     
