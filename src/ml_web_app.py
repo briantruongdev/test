@@ -21,7 +21,10 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # Khởi tạo trainer và load models
-trainer = MLModelTrainer()
+# Use path relative to this file so it works regardless of current working directory
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODELS_DIR = os.path.join(BASE_DIR, "trained_models")
+trainer = MLModelTrainer(models_dir=MODELS_DIR)
 feature_extractor = FireFeatureExtractor()
 
 # Load models mới nhất nếu có
