@@ -116,3 +116,8 @@ src/plots/
 # Model binaries
 *.pkl
 *.joblib
+
+# ---- Exceptions: include trained models for deployment ----
+!src/trained_models/
+!src/trained_models/*.pkl
+!src/trained_models/*.json

@@ -14,8 +14,10 @@ logs/
 src/logs/
 src/uploads/
 src/results/
-src/trained_models/
 src/plots/
+
+# Allow trained models to be included in the image
+!src/trained_models/**
 
 # Python envs
 .venv/
