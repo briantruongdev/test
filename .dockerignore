@@ -1,0 +1,26 @@
+.git
+.gitignore
+.vscode
+.idea
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.DS_Store
+
+# Project large/ephemeral files
+dataset/
+logs/
+src/logs/
+src/uploads/
+src/results/
+src/trained_models/
+src/plots/
+
+# Python envs
+.venv/
+venv/
+env/
+ENV/
+
+

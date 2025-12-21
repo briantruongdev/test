@@ -1,0 +1,117 @@
+{
+  "KNN": {
+    "train_result": {
+      "cv_score": 0.55,
+      "best_params": {}
+    },
+    "eval_result": {
+      "accuracy": 0.6,
+      "precision": 0.6111111111111112,
+      "recall": 0.9166666666666666,
+      "f1_score": 0.7333333333333333,
+      "roc_auc": 0.48958333333333337,
+      "confusion_matrix": [
+        [
+          1,
+          7
+        ],
+        [
+          1,
+          11
+        ]
+      ]
+    }
+  },
+  "SVM": {
+    "train_result": {
+      "cv_score": 0.6,
+      "best_params": {}
+    },
+    "eval_result": {
+      "accuracy": 0.6,
+      "precision": 0.6111111111111112,
+      "recall": 0.9166666666666666,
+      "f1_score": 0.7333333333333333,
+      "roc_auc": 0.5729166666666666,
+      "confusion_matrix": [
+        [
+          1,
+          7
+        ],
+        [
+          1,
+          11
+        ]
+      ]
+    }
+  },
+  "Decision Tree": {
+    "train_result": {
+      "cv_score": 0.475,
+      "best_params": {}
+    },
+    "eval_result": {
+      "accuracy": 0.4,
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1_score": 0.5,
+      "roc_auc": 0.375,
+      "confusion_matrix": [
+        [
+          2,
+          6
+        ],
+        [
+          6,
+          6
+        ]
+      ]
+    }
+  },
+  "Logistic Regression": {
+    "train_result": {
+      "cv_score": 0.525,
+      "best_params": {}
+    },
+    "eval_result": {
+      "accuracy": 0.55,
+      "precision": 0.6,
+      "recall": 0.75,
+      "f1_score": 0.6666666666666666,
+      "roc_auc": 0.6041666666666666,
+      "confusion_matrix": [
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          9
+        ]
+      ]
+    }
+  },
+  "Random Forest": {
+    "train_result": {
+      "cv_score": 0.6125,
+      "best_params": {}
+    },
+    "eval_result": {
+      "accuracy": 0.45,
+      "precision": 0.5384615384615384,
+      "recall": 0.5833333333333334,
+      "f1_score": 0.56,
+      "roc_auc": 0.3802083333333333,
+      "confusion_matrix": [
+        [
+          2,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ]
+    }
+  }
+}

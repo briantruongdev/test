@@ -1,187 +1,238 @@
-# 🔥 Hệ thống phân tích lửa chi tiết từng bước
+# 🔥 Fire Detection - Machine Learning System
 
-## 📋 Mô tả
+Hệ thống Machine Learning hoàn chỉnh để phát hiện lửa từ ảnh, bao gồm training, đánh giá và deployment.
 
-Hệ thống này cung cấp phân tích chi tiết từng bước để xác định chính xác một ảnh có chứa lửa hay không. Thay vì chỉ đưa ra kết quả cuối cùng, hệ thống sẽ hiển thị rõ ràng từng bước phân tích và lý do tại sao đưa ra quyết định đó.
+## 📊 Kết quả Training (27/07/2025)
 
-## 🎯 Tại sao cần hệ thống này?
+| Model | Accuracy | Precision | Recall | F1-Score | ROC AUC |
+|-------|----------|-----------|--------|----------|---------|
+| **KNN** | 60% | 61% | 92% | 73% | 0.49 |
+| **SVM** | 60% | 61% | 92% | 73% | 0.57 |
+| **Logistic Regression** | 55% | 60% | 75% | 67% | 0.60 |
+| **Random Forest** | 45% | 54% | 58% | 56% | 0.38 |
+| **Decision Tree** | 40% | 50% | 50% | 50% | 0.38 |
 
-Hệ thống phân loại lửa trước đây có thể đưa ra kết quả sai (ví dụ: ảnh có lửa rõ ràng nhưng lại phân loại là "NO FIRE"). Hệ thống mới này sẽ:
+**Model tốt nhất:** KNN và SVM (F1-Score: 73%)
 
-1. **Phân tích từng bước rõ ràng** - Hiển thị chính xác những gì hệ thống "nhìn thấy"
-2. **Giải thích lý do** - Tại sao ảnh được phân loại là FIRE hay NO FIRE
-3. **Kiểm tra điều kiện** - Xem ảnh có đáp ứng các tiêu chí nào
-4. **Visualization** - Hiển thị trực quan các vùng lửa được phát hiện
+## 🚀 Quick Start
 
-## 🏗️ Kiến trúc hệ thống
+### 1. Cài đặt dependencies
+```bash
+cd src
+pip install -r requirements.txt
+```
 
-### 7 bước phân tích chi tiết:
+### 2. Training models
+```bash
+# Training nhanh với 500 mẫu
+python train_and_evaluate.py --max-samples 500 --no-grid-search
 
-1. **📸 Bước 1: Load và preprocess ảnh**
-   - Load ảnh và resize về kích thước chuẩn (224x224)
-   - Chuyển đổi màu: RGB → HSV → Grayscale
-   - Tính toán thống kê cơ bản (độ sáng, độ tương phản)
+# Training đầy đủ
+python train_and_evaluate.py
+```
 
-2. **🎨 Bước 2: Phân tích màu sắc**
-   - Tạo mask cho từng màu lửa: đỏ, cam, vàng
-   - Tính tỷ lệ từng màu trong ảnh
-   - Tạo mask tổng hợp cho tất cả màu lửa
+### 3. Chạy web app
+```bash
+python ml_web_app.py
+```
+Truy cập: `http://localhost:8085`
 
-3. **🔥 Bước 3: Phân tích vùng lửa**
-   - Tìm contours của các vùng lửa
-   - Tính diện tích và số lượng vùng lửa
-   - Phân tích độ sáng và độ bão hòa của từng vùng
-
-4. **🌀 Bước 4: Phân tích texture**
-   - Tính gradient của ảnh (Sobel)
-   - Tính entropy của gradient để đo độ phức tạp
-   - Phân tích hướng gradient
-
-5. **📊 Bước 5: Phân tích histogram**
-   - Tính histogram cho từng channel HSV
-   - Phân tích tỷ lệ màu lửa trong histogram
-   - Tính tỷ lệ độ bão hòa và độ sáng cao
-
-6. **🎯 Bước 6: Tổng hợp kết quả**
-   - Kiểm tra 6 điều kiện quan trọng
-   - Tính điểm tổng hợp và độ tin cậy
-   - Đưa ra quyết định cuối cùng
-
-7. **📋 Bước 7: Tạo báo cáo**
-   - Lưu kết quả chi tiết dưới dạng JSON
-   - Tạo visualization trực quan
-
-## 📁 Cấu trúc thư mục
+## 📁 Cấu trúc dự án
 
 ```
 src/
-├── detailed_fire_analyzer.py      # Core analyzer
-├── detailed_web_app.py            # Web application
-├── test_detailed_analyzer.py      # Test script
-├── templates/
-│   └── detailed_index.html        # Web interface
-├── results/                       # Kết quả phân tích
-├── uploads/                       # Ảnh upload
-└── README.md                      # Tài liệu này
+├── 🔧 Core Modules
+│   ├── fire_feature_extractor.py    # Trích xuất đặc trưng từ ảnh
+│   ├── ml_models.py                 # Định nghĩa và training ML models
+│   ├── train_and_evaluate.py        # Pipeline training chính
+│   └── ml_web_app.py               # Web application
+│
+├── 🌐 Web Interface
+│   ├── templates/
+│   │   └── ml_index.html           # Giao diện web
+│   └── uploads/                    # Ảnh upload (tự tạo)
+│
+├── 📊 Results & Models
+│   ├── trained_models/             # Models đã train
+│   ├── results/                    # Kết quả đánh giá
+│   └── plots/                      # Biểu đồ so sánh
+│
+├── 🛠️ Utilities
+│   ├── balance_dataset.py          # Cân bằng dataset
+│   ├── debug_dataset.py            # Debug dataset
+│   └── demo.py                     # Demo nhanh
+│
+└── 📋 Documentation
+    ├── README.md                   # Tài liệu này
+    ├── SUMMARY.md                  # Tóm tắt hệ thống
+    └── requirements.txt            # Dependencies
 ```
 
-## 🚀 Cách sử dụng
+## 🔍 Tính năng chính
 
-### 1. Chạy web application
+### 1. **Feature Extraction (714 features)**
+- **Color Features (692)**: HSV histogram, fire color mask
+- **Texture Features (5)**: Gradient, entropy, LBP
+- **Statistical Features (12)**: RGB statistics, brightness
 
+### 2. **ML Models Supported**
+- **K-Nearest Neighbors (KNN)** - Đơn giản, hiệu quả
+- **Support Vector Machine (SVM)** - Tốt với dữ liệu nhiều chiều
+- **Decision Tree** - Dễ hiểu, có thể giải thích
+- **Logistic Regression** - Nhanh, ổn định
+- **Random Forest** - Hiệu quả cao, ít overfitting
+
+### 3. **Evaluation Metrics**
+- Accuracy, Precision, Recall, F1-Score
+- ROC AUC, Confusion Matrix
+- Cross-validation scores
+
+### 4. **Web Interface**
+- Upload ảnh drag & drop
+- Real-time prediction với tất cả models
+- Visual results và confidence scores
+- Model comparison
+
+## 📈 Sử dụng chi tiết
+
+### Training Models
+
+```bash
+# Training cơ bản
+python train_and_evaluate.py
+
+# Training với giới hạn mẫu
+python train_and_evaluate.py --max-samples 1000
+
+# Training nhanh (không grid search)
+python train_and_evaluate.py --no-grid-search
+
+# Training với dataset tùy chỉnh
+python train_and_evaluate.py --dataset /path/to/dataset
+```
+
+### Test ảnh đơn lẻ
+
+```bash
+# Test sau training
+python train_and_evaluate.py --test-image test_image.jpg
+
+# Test với models đã lưu
+python train_and_evaluate.py --load-models 20250727_151800 --test-image test_image.jpg
+```
+
+### Web Application
+
+```bash
+# Khởi động web app
+python ml_web_app.py
+
+# Web app với port tùy chỉnh
+python ml_web_app.py --port 8080
+```
+
+## 🎯 Kết quả thực tế
+
+### Performance Analysis
+- **KNN & SVM** cho kết quả tốt nhất với F1-Score 73%
+- **Logistic Regression** ổn định với F1-Score 67%
+- **Random Forest** và **Decision Tree** cần cải thiện hyperparameters
+
+### Recommendations
+1. **Production**: Sử dụng KNN hoặc SVM
+2. **Real-time**: Logistic Regression (nhanh nhất)
+3. **Interpretability**: Decision Tree (dễ giải thích)
+
+## 🔧 Troubleshooting
+
+### Lỗi thường gặp
+
+**1. "No module named 'cv2'"**
+```bash
+pip install opencv-python
+```
+
+**2. "Dataset path không tồn tại"**
+```bash
+# Kiểm tra cấu trúc dataset
+ls ../dataset/train/images/
+```
+
+**3. "Memory error khi training"**
+```bash
+# Giảm số lượng mẫu
+python train_and_evaluate.py --max-samples 500
+```
+
+**4. "Port already in use"**
+```bash
+# Thay đổi port
+python ml_web_app.py --port 8086
+```
+
+## 📊 Dataset Requirements
+
+```
+dataset/
+├── train/
+│   ├── images/          # Ảnh training
+│   └── labels/          # Labels training
+├── val/
+│   ├── images/          # Ảnh validation
+│   └── labels/          # Labels validation
+└── test/
+    ├── images/          # Ảnh test
+    └── labels/          # Labels test
+```
+
+## 🚀 Deployment
+
+### Local Development
 ```bash
 cd src
-python detailed_web_app.py
+python ml_web_app.py
 ```
 
-Truy cập: http://localhost:8083
-
-### 2. Test với script
-
-```bash
-# Test với danh sách ảnh mặc định
-python test_detailed_analyzer.py
-
-# Test với ảnh cụ thể
-python test_detailed_analyzer.py ../dataset/train/images/train_1.jpg
+### Production (Docker)
+```dockerfile
+FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+EXPOSE 8085
+CMD ["python", "ml_web_app.py"]
 ```
 
-### 3. Sử dụng trực tiếp trong code
+## 📝 API Endpoints
 
-```python
-from detailed_fire_analyzer import DetailedFireAnalyzer
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | Trang chủ |
+| `/upload` | POST | Upload và dự đoán ảnh |
+| `/health` | GET | Health check |
+| `/models` | GET | Thông tin models |
+| `/load-models` | POST | Load models |
+| `/train-status` | GET | Trạng thái training |
 
-# Khởi tạo analyzer
-analyzer = DetailedFireAnalyzer()
+## 🤝 Đóng góp
 
-# Phân tích ảnh
-report = analyzer.analyze_image_step_by_step("path/to/image.jpg")
+1. Fork repository
+2. Tạo feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Tạo Pull Request
 
-# Xem kết quả
-print(f"Kết quả: {report['final_classification']['classification']}")
-print(f"Độ tin cậy: {report['final_classification']['confidence']*100:.1f}%")
-```
+## 📄 License
 
-## 📊 Các điều kiện kiểm tra
+MIT License - xem file LICENSE để biết thêm chi tiết.
 
-Hệ thống kiểm tra 6 điều kiện chính:
+## 📞 Liên hệ
 
-1. **has_fire_colors**: Có màu lửa (đỏ/cam/vàng) > 2%
-2. **has_fire_area**: Có vùng lửa đủ lớn > 2%
-3. **has_brightness**: Độ sáng trung bình > 150
-4. **has_saturation**: Độ bão hòa trung bình > 100
-5. **has_texture**: Texture phức tạp (entropy > 4.0)
-6. **has_fire_histogram**: Histogram có tỷ lệ màu lửa > 10%
+- **Author**: ML Fire Detection Team
+- **Email**: contact@firedetection.com
+- **Project**: [GitHub Repository](https://github.com/firedetection/ml-system)
 
-**Quyết định cuối cùng:**
-- FIRE: Ít nhất 3/6 điều kiện được đáp ứng (50%)
-- NO FIRE: Dưới 3/6 điều kiện
+---
 
-## 🎨 Visualization
-
-Hệ thống tạo ra visualization với 6 panel:
-
-1. **Ảnh gốc** - Ảnh đã được resize
-2. **Ảnh HSV** - Ảnh trong không gian màu HSV
-3. **Mask tổng hợp** - Vùng màu lửa được phát hiện
-4. **Mask từng màu** - Phân biệt đỏ/cam/vàng
-5. **Contours vùng lửa** - Các vùng lửa được vẽ viền
-6. **Thống kê màu sắc** - Biểu đồ tỷ lệ màu
-
-## 📄 Báo cáo chi tiết
-
-Mỗi lần phân tích sẽ tạo ra:
-
-1. **File JSON** - Chứa tất cả kết quả chi tiết
-2. **File PNG** - Visualization trực quan
-3. **Log console** - Thông tin từng bước
-
-## 🔧 Tùy chỉnh
-
-### Thay đổi ngưỡng
-
-```python
-analyzer = DetailedFireAnalyzer()
-analyzer.thresholds['fire_ratio_min'] = 0.03  # Tăng ngưỡng lên 3%
-```
-
-### Thay đổi màu lửa
-
-```python
-# Điều chỉnh range màu HSV
-analyzer.fire_color_ranges['red_lower'] = np.array([0, 120, 120])
-analyzer.fire_color_ranges['red_upper'] = np.array([8, 255, 255])
-```
-
-## 🐛 Xử lý lỗi
-
-### Lỗi thường gặp:
-
-1. **Import error**: Cài đặt thư viện cần thiết
-   ```bash
-   pip install opencv-python numpy matplotlib seaborn
-   ```
-
-2. **Memory error**: Giảm kích thước ảnh hoặc số lượng ảnh test
-
-3. **File not found**: Kiểm tra đường dẫn ảnh
-
-## 📈 Hiệu suất
-
-- **Thời gian phân tích**: ~2-5 giây/ảnh
-- **Độ chính xác**: Cao hơn hệ thống cũ do kiểm tra nhiều điều kiện
-- **Khả năng giải thích**: 100% - mọi quyết định đều có lý do rõ ràng
-
-## 🔮 Phát triển tương lai
-
-1. **Machine Learning**: Kết hợp với deep learning để cải thiện độ chính xác
-2. **Real-time**: Xử lý video stream
-3. **Multi-class**: Phân loại nhiều loại lửa khác nhau
-4. **API**: Tạo REST API cho tích hợp
-
-## 📞 Hỗ trợ
-
-Nếu gặp vấn đề, hãy:
-1. Kiểm tra log console để xem lỗi chi tiết
-2. Xem file báo cáo JSON để hiểu kết quả
-3. Kiểm tra visualization để xác nhận phát hiện 
+⭐ **Star this repository nếu bạn thấy hữu ích!** 
