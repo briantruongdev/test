@@ -11,6 +11,7 @@ Pillow>=8.3.0
 
 # Web framework
 Flask>=2.0.0
+gunicorn>=21.0.0
 
 # Model persistence
 joblib>=1.1.0
